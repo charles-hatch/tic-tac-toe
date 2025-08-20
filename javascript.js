@@ -1,57 +1,66 @@
-
-
-
-// tic tac toe pseudo idea
-
-//browser opens, load up empty gameboard array
-//create two player objects that are stored with some info such as (a score, and their marker X or O)
-//a game processor, which counts the turns, checks for reset game, etc - control game flow!
-
-
 // Gameboard
+function createGameboard() {
+  let gameboard = [
+    "", "", "",
+    "", "", "",
+    "", "", ""
+  ];
 
-// array of 9 cells
+  const setMarker = (i, marker) => {
+    gameboard.splice(i, 1, marker)
+  }
+  // function to set a mark -- change array at index i, to "marker"
 
-// function to set a mark
+  const checkCell = (i) => {
+    if (gameboard[i] === "") {
+      return true;
+    } else return false;
+  }
+  // function to check if a cell is empty 
 
-// function to check if a cell is empty
+  return { gameboard, setMarker, checkCell};
+}
 
+// Players
 function createPlayer(marker) {
   let score = 0;
   const getScore = () => score;
   const increaseScore = () => score++;
   return { marker, getScore, increaseScore };
 }
-
 player1 = createPlayer("O");
 player2 = createPlayer("X");
 
+
+function gameController(){
+
+}
+
+const gameController = (function () {
+  const add = (a, b) => a + b;
+  const sub = (a, b) => a - b;
+  const mul = (a, b) => a * b;
+  const div = (a, b) => a / b;
+  return { add, sub, mul, div };
+})();
+// Game controller:
+// track current player
+// function to play a turn
+// function to check win
+// function to switch players
+//a game processor, which counts the turns, checks for reset game, etc - control game flow!
+
+
+
+
+//how to use our factory function objects
 player1.increaseScore();
 console.log(player1.getScore())
 console.log(player2.getScore())
 
 
-// One createPlayer(marker) factory.
 
-// Then make two instances: player1 = createPlayer("O"), player2 = createPlayer("X").
 
-// Players
-
-// name
-
-// mark (X or O)
-
-// maybe score
-
-// Game controller
-
-// track current player
-
-// function to play a turn
-
-// function to check win
-
-// function to switch players
 
 // You’re going to store the gameboard as an array inside of a Gameboard object, so start there! 
 // Your players are also going to be stored in objects, and you’re 
