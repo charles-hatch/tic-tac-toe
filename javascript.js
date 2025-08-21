@@ -1,3 +1,6 @@
+const container = document.querySelector("#container");
+const resetGameBtn = document.querySelector("#reset-game-btn");
+
 // Gameboard
 function createGameboard() {
   let gameboard = [
@@ -8,8 +11,9 @@ function createGameboard() {
 
   const setMarker = (i, marker) => {
     gameboard.splice(i, 1, marker)
+    console.log(marker + " player placed a marker at " + i)
   }
-  // function to set a mark -- change array at index i, to "marker"
+  //Function to splice in our player's marker
 
   const checkCell = (i) => {
     if (gameboard[i] === "") {
@@ -18,8 +22,16 @@ function createGameboard() {
   }
   // function to check if a cell is empty 
 
-  return { gameboard, setMarker, checkCell};
+  const resetBoard = () => {
+    for (let i = 0; i < gameboard.length; i++) {
+      gameboard[i] = "";
+    }
+  }
+
+  return { gameboard, setMarker, checkCell, resetBoard };
 }
+
+
 
 // Players
 function createPlayer(marker) {
@@ -28,52 +40,122 @@ function createPlayer(marker) {
   const increaseScore = () => score++;
   return { marker, getScore, increaseScore };
 }
-player1 = createPlayer("O");
-player2 = createPlayer("X");
 
 
-function gameController(){
 
+//Game Controller
+const gameController = (function () {
+  player1 = createPlayer("O");
+  player2 = createPlayer("X");
+  let currentPlayer = player1;
+  let turns = 0;
+  let gameOver = false;
+
+  const board = createGameboard();
+
+  // Private helper functions
+  const switchPlayer = () => {
+    console.log("switching players...")
+    if (currentPlayer === player1) {
+      currentPlayer = player2;
+    } else {
+      currentPlayer = player1;
+    }
+  };
+
+
+  const checkWin = (i) => {
+
+
+    const b = board.gameboard;
+    const m = currentPlayer.marker;
+    console.log("checking winner...")
+    if (b[0] === m && b[1] === m && b[2] === m ||
+      b[3] === m && b[4] === m && b[5] === m ||
+      b[6] === m && b[7] === m && b[8] === m ||
+
+      b[0] === m && b[3] === m && b[6] === m ||
+      b[1] === m && b[4] === m && b[7] === m ||
+      b[2] === m && b[5] === m && b[8] === m ||
+
+      b[0] === m && b[4] === m && b[8] === m ||
+      b[2] === m && b[4] === m && b[6] === m) {
+      alert("The Winner is " + m)
+      gameOver = true;
+    }
+
+  };
+
+  const resetGame = () => {
+    board.resetBoard();
+    turns = 0;
+    gameOver = false;
+    renderBoard();
+    // reset DOM, board and turns
+  };
+
+  const playTurn = (i) => {
+    if (gameOver) return;
+    console.log("playing a turn...")
+    if (board.checkCell(i)) {
+      board.setMarker(i, currentPlayer.marker);
+      turns++;
+      checkWin(i);
+      switchPlayer();
+    } else {
+      console.log("Cell is already taken!");
+    }
+  };
+
+  // Public methods
+  return {
+    playTurn,
+    resetGame,
+    currentPlayer: () => currentPlayer,
+    board
+  };
+
+})();
+
+function renderBoard() {
+  container.innerHTML = '';
+  for (let i = 0; i < gameController.board.gameboard.length; i++) {
+    const tile = document.createElement("div");
+    tile.classList.add('tile');
+
+    const marker = gameController.board.gameboard[i];
+    if (marker !== "") {
+      tile.textContent = marker;
+    }
+
+    tile.addEventListener("click", () => {
+
+      gameController.playTurn(i)
+      renderBoard()
+
+    });
+
+    container.appendChild(tile)
+  }
 }
 
-const gameController = (function () {
-  const add = (a, b) => a + b;
-  const sub = (a, b) => a - b;
-  const mul = (a, b) => a * b;
-  const div = (a, b) => a / b;
-  return { add, sub, mul, div };
-})();
-// Game controller:
-// track current player
-// function to play a turn
-// function to check win
-// function to switch players
-//a game processor, which counts the turns, checks for reset game, etc - control game flow!
+renderBoard();
+
+resetGameBtn.addEventListener("click", () => {
+  gameController.resetGame();
+});
 
 
+//to do list:
+//WHEN THE GAME IS FINISHED, PAUSE ALL INPUT UNTIL GAME IS RESET
+
+//fix the concept of scores
+//create a win condition that breaks out of all looping
+// FIX LOGIC, IF THE SPOT IS ALREADY TAKEN - DONT SWITCH PLAYER
 
 
-//how to use our factory function objects
-player1.increaseScore();
-console.log(player1.getScore())
-console.log(player2.getScore())
+//DUMMY CODE
 
-
-
-
-
-// You’re going to store the gameboard as an array inside of a Gameboard object, so start there! 
-// Your players are also going to be stored in objects, and you’re 
-// probably going to want an object to control the flow of the game itself.
-
-// Your main goal here is to have as little global code as possible. 
-// Try tucking as much as you can inside factories.
-//  If you only need a single instance of something (e.g. the gameboard, the displayController etc.)
-//  then wrap the factory inside an IIFE (module pattern) so it cannot be reused to create additional instances.
-
-// In this project, think carefully about where each bit of logic should reside. 
-// Each little piece of functionality should be able to fit in the game, player or gameboard objects. 
-// Take care to put them in “logical” places. Spending a little time brainstorming here can make your life much easier later!
-// If you’re having trouble,
-//  Building a house from the inside out is a great article that lays out a highly applicable example both of
-//  how you might approach tackling this project as well as how you might organize and structure your code.
+// gameController.playTurn(0);
+// console.log(gameController.board)
+// console.log(gameController.currentPlayer().marker); // "X"
