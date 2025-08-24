@@ -1,11 +1,34 @@
 html,
 body {
-
     margin: 0;
     padding: 0;
     overflow: hidden;
     background: linear-gradient(135deg, #2c3e50, #4ca1af);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+#start-screen {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+#start-screen-txt {
+    color: white;
+    font-size: 1.2rem;
+}
+
+#start-screen input {
+    padding: 10px 14px;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    width: 220px;
 }
 
 #layout {
@@ -32,7 +55,7 @@ body {
     align-items: center;
     justify-content: center;
     background: white;
-    border: 2px solid red;
+    border: 2px solid rgb(0, 0, 0);
     font-size: 8vmin;
     line-height: 1;
     user-select: none;
@@ -43,12 +66,15 @@ body {
 .tile:hover {
     background: #7dcfff;
     transform: scale(1.05);
-    border: 4px solid red;
+    border: 4px solid rgb(0, 0, 0);
+}
 
+#next-round-btn {
+    background: #e74c3c;
 }
 
 
-#reset-game-btn {
+.ui-btn {
     padding: 0.75rem 1.5rem;
     font-size: 1.2rem;
     font-weight: bold;
@@ -64,59 +90,94 @@ body {
     transition: transform 0.15s ease, background 0.2s ease;
 }
 
-#reset-game-btn:hover {
+.ui-btn:hover {
     background: #c0392b;
     transform: translateY(-2px);
 }
 
-#reset-game-btn:active {
+.ui-btn:active {
     transform: translateY(1px);
 }
 
-#title {
+.title {
     color: white;
     font-size: 5rem;
     font-weight: bold;
     font-style: italic;
 }
 
+.subtext {
+    font-size: 1rem;
+    font-weight: bold;
+    font-style: italic;
+}
+
 #popup {
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 15px;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: white;
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     z-index: 1000;
     border: solid 3px black;
     min-width: 250px;
     text-align: center;
-    font-size: 3rem;
+    font-size: 2rem;
+    font-style: italic;
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
-#popup button {
-    width:fit-content;
+#popup-btn {
+    width: fit-content;
     position: relative;
     background: #e7e7e7;
     padding: 0.5rem 0.8rem;
-    font-size:1.3rem;
+    font-size: 1.3rem;
     font-weight: bold;
     border: 1px solid #333;
     border-radius: 8px;
 }
 
-#popup button:hover {
+#popup-btn:hover {
     cursor: pointer;
     background: #ffffff;
     transform: scale(1.05);
     border: 1px solid rgb(0, 0, 0);
 }
+
+#player-names,
+#scores-container {
+    color: white;
+    font-size: 1.5rem;
+    display: flex;
+    text-align: center;
+    gap: 100px;
+
+}
+
+.player-input-container{
+    display:flex;
+    gap:15px;
+}
+
+.symbol{
+    padding-top:10px;
+    font-size:1.5rem;
+    color:white;
+    font-family: 'Press Start 2P', monospace;
+}
+
+
+/* * {
+    border: solid red 1px;
+} */
