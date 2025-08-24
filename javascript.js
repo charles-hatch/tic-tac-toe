@@ -1,5 +1,6 @@
 const container = document.querySelector("#container");
 const resetGameBtn = document.querySelector("#reset-game-btn");
+const winTextContainer = document.querySelector('#win-text');
 
 // Gameboard
 function createGameboard() {
@@ -11,7 +12,6 @@ function createGameboard() {
 
   const setMarker = (i, marker) => {
     gameboard.splice(i, 1, marker)
-    console.log(marker + " player placed a marker at " + i)
   }
   //Function to splice in our player's marker
 
@@ -55,7 +55,6 @@ const gameController = (function () {
 
   // Private helper functions
   const switchPlayer = () => {
-    console.log("switching players...")
     if (currentPlayer === player1) {
       currentPlayer = player2;
     } else {
@@ -69,7 +68,6 @@ const gameController = (function () {
 
     const b = board.gameboard;
     const m = currentPlayer.marker;
-    console.log("checking winner...")
     if (b[0] === m && b[1] === m && b[2] === m ||
       b[3] === m && b[4] === m && b[5] === m ||
       b[6] === m && b[7] === m && b[8] === m ||
@@ -80,8 +78,9 @@ const gameController = (function () {
 
       b[0] === m && b[4] === m && b[8] === m ||
       b[2] === m && b[4] === m && b[6] === m) {
-      alert("The Winner is " + m)
       gameOver = true;
+      winTextContainer.textContent = "The Winner is " + m + "!";
+     
     }
 
   };
@@ -90,20 +89,19 @@ const gameController = (function () {
     board.resetBoard();
     turns = 0;
     gameOver = false;
+    winTextContainer.textContent = "";
     renderBoard();
     // reset DOM, board and turns
   };
 
   const playTurn = (i) => {
     if (gameOver) return;
-    console.log("playing a turn...")
     if (board.checkCell(i)) {
       board.setMarker(i, currentPlayer.marker);
       turns++;
       checkWin(i);
       switchPlayer();
     } else {
-      console.log("Cell is already taken!");
     }
   };
 
@@ -135,7 +133,7 @@ function renderBoard() {
 
     });
 
-    container.appendChild(tile)
+    container.appendChild(tile);
   }
 }
 
@@ -146,16 +144,5 @@ resetGameBtn.addEventListener("click", () => {
 });
 
 
-//to do list:
-//WHEN THE GAME IS FINISHED, PAUSE ALL INPUT UNTIL GAME IS RESET
-
-//fix the concept of scores
-//create a win condition that breaks out of all looping
-// FIX LOGIC, IF THE SPOT IS ALREADY TAKEN - DONT SWITCH PLAYER
-
-
-//DUMMY CODE
-
-// gameController.playTurn(0);
-// console.log(gameController.board)
-// console.log(gameController.currentPlayer().marker); // "X"
+// Clean up the interface to allow players to put in their names, 
+// include a button to start/restart the game and add a display element that shows the results upon game end!
