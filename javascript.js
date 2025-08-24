@@ -1,6 +1,6 @@
 const container = document.querySelector("#container");
 const resetGameBtn = document.querySelector("#reset-game-btn");
-const winTextContainer = document.querySelector('#win-text');
+const popUpBlock = document.querySelector('#popup')
 
 // Gameboard
 function createGameboard() {
@@ -79,8 +79,9 @@ const gameController = (function () {
       b[0] === m && b[4] === m && b[8] === m ||
       b[2] === m && b[4] === m && b[6] === m) {
       gameOver = true;
-      winTextContainer.textContent = "The Winner is " + m + "!";
-     
+      popUpBlock.classList.remove('hidden')
+      popUpBlock.textContent = "The Winner is " + m + "!";
+
     }
 
   };
@@ -89,7 +90,8 @@ const gameController = (function () {
     board.resetBoard();
     turns = 0;
     gameOver = false;
-    winTextContainer.textContent = "";
+    popUpBlock.textContent = "";
+    popUpBlock.classList.add('hidden')
     renderBoard();
     // reset DOM, board and turns
   };
@@ -120,7 +122,6 @@ function renderBoard() {
   for (let i = 0; i < gameController.board.gameboard.length; i++) {
     const tile = document.createElement("div");
     tile.classList.add('tile');
-
     const marker = gameController.board.gameboard[i];
     if (marker !== "") {
       tile.textContent = marker;

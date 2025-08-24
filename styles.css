@@ -37,6 +37,7 @@ body {
     line-height: 1;
     user-select: none;
     border-radius: 1rem;
+    font-family: 'Press Start 2P', monospace;
 }
 
 .tile:hover {
@@ -72,13 +73,50 @@ body {
     transform: translateY(1px);
 }
 
-#title, #win-text{
-    font-size:5rem;
+#title {
     color: white;
-     font-weight: bold;
+    font-size: 5rem;
+    font-weight: bold;
     font-style: italic;
 }
 
-#win-text{
-    
+#popup {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    border: solid 3px black;
+    min-width: 250px;
+    text-align: center;
+    font-size: 3rem;
+}
+
+.hidden {
+    display: none;
+}
+
+#popup button {
+    width:fit-content;
+    position: relative;
+    background: #e7e7e7;
+    padding: 0.5rem 0.8rem;
+    font-size:1.3rem;
+    font-weight: bold;
+    border: 1px solid #333;
+    border-radius: 8px;
+}
+
+#popup button:hover {
+    cursor: pointer;
+    background: #ffffff;
+    transform: scale(1.05);
+    border: 1px solid rgb(0, 0, 0);
 }
