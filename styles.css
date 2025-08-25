@@ -165,19 +165,21 @@ body {
 
 }
 
-.player-input-container{
-    display:flex;
-    gap:15px;
+.player-input-container {
+    display: flex;
+    gap: 15px;
 }
 
-.symbol{
-    padding-top:10px;
-    font-size:1.5rem;
-    color:white;
+.symbol {
+    padding-top: 10px;
+    font-size: 1.5rem;
+    color: white;
     font-family: 'Press Start 2P', monospace;
 }
 
-
-/* * {
-    border: solid red 1px;
-} */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    justify-content: center;
+}

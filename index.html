@@ -15,13 +15,18 @@
     <div id="start-screen">
         <h1 class="title">Tic Tac Toe</h1>
         <div id="start-screen-txt">Input player names here.</div>
-        <div class="player-input-container">
-            <div class="symbol">O</div><input id="player1" placeholder="Player 1 name" required minlength="2">
-        </div>
-        <div class="player-input-container">
-            <div class="symbol">X</div><input id="player2" placeholder="Player 2 name" required minlength="2">
-        </div>
-        <button class="ui-btn" id="start-btn">Start Game</button>
+        <form id="player-form">
+            <div class="player-input-container">
+                <div class="symbol">O</div>
+                <input id="player1" placeholder="Player 1 name" minlength="2" maxlength="10">
+            </div>
+            <div class="player-input-container">
+                <div class="symbol">X</div>
+                <input id="player2" placeholder="Player 2 name" minlength="2" maxlength="10">
+            </div>
+            <button type="submit" class="ui-btn" id="start-btn">Start Game</button>
+        </form>
+
         <div class="subtext">Made by Charles Hatch 2025</div>
     </div>
 
@@ -33,14 +38,12 @@
         </div>
         <div id="layout">
             <div class="title">Tic Tac Toe</div>
-            <div id="player-names">
-                <div id="player-name-1"></div>
-                <div id="player-name-2"></div>
-            </div>
+
             <div id="scores-container">
                 <div id="player-1-score"></div>
                 <div id="player-2-score"></div>
             </div>
+            <div id="turns-display"></div>
             <div id="container"></div>
             <button class="ui-btn" id="next-round-btn">Next Round</button>
             <button class="ui-btn" id="reset-game-btn">Reset Game</button>
