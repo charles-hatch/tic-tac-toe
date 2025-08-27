@@ -37,16 +37,30 @@
             <button id="popup-btn">&times;</button>
         </div>
         <div id="layout">
-            <div class="title">Tic Tac Toe</div>
-
-            <div id="scores-container">
-                <div id="player-1-score"></div>
-                <div id="player-2-score"></div>
+            <div id="header">
+                <div class="title">Tic Tac Toe</div>
+                <div id="rounds-counter"></div>
             </div>
-            <div id="turns-display"></div>
+            <div id="left-sidebar">
+                <div class="symbol">O</div>
+                <div id="scores-container">
+                    <div id="player-1-score"></div>
+
+                </div>
+                <div id="turns-display"></div>
+            </div>
             <div id="container"></div>
-            <button class="ui-btn" id="next-round-btn">Next Round</button>
-            <button class="ui-btn" id="reset-game-btn">Reset Game</button>
+            <div id="right-sidebar">
+                <div class="symbol">X</div>
+                <div id="scores-container">
+                    <div id="player-2-score"></div>
+                </div>
+            </div>
+            <div id="footer">
+
+                <button class="ui-btn" id="reset-game-btn">Reset Game</button>
+                <button class="ui-btn" id="next-round-btn">Next Round</button>
+            </div>
 
 
         </div>

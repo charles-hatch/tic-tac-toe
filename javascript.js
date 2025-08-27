@@ -12,6 +12,7 @@ const player2Input = document.querySelector('#player2');
 const player1ScoreContainer = document.querySelector('#player-1-score');
 const player2ScoreContainer = document.querySelector('#player-2-score');
 const playerTurnsDisplay = document.querySelector('#turns-display');
+const playerRoundsDisplay = document.querySelector('#rounds-counter');
 
 //  playerTurnsDisplay.textContent = "It's " + currentPlayerName + "'s turn.";
 // DISPLAY THE MARKER NEXT TO THE NAMES
@@ -106,7 +107,9 @@ const gameController = (function () {
       //INCREASE SCORE
       currentPlayer.increaseScore();
       player1ScoreContainer.textContent = player1Name + "'s score : " + player1.getScore();
-      player2ScoreContainer.textContent = player1Name + "'s score : " + player2.getScore();
+      player2ScoreContainer.textContent = player2Name + "'s score : " + player2.getScore();
+
+
     }
 
   };
@@ -118,6 +121,7 @@ const gameController = (function () {
     }
     turns = 0;
     rounds++;
+    playerRoundsDisplay.textContent = "Round " + rounds;
     board.resetBoard();
     gameOver = false;
     popUpText.textContent = "";
@@ -139,7 +143,6 @@ const gameController = (function () {
     renderBoard();
     gameScreen.classList.add('hidden')
     startScreen.classList.remove('hidden');
-
     // resets the entire game and returns to start screen
   };
 
@@ -222,6 +225,8 @@ document.getElementById("player-form").addEventListener("submit", (e) => {
     gameScreen.classList.remove('hidden')
     player1ScoreContainer.textContent = player1Name + "'s Score : 0";
     player2ScoreContainer.textContent = player2Name + "'s Score : 0";
+    //setup our initial text display
+    playerRoundsDisplay.textContent = "Round 0";
   } else {
     e.target.reportValidity(); // show native validation messages
   }
@@ -234,3 +239,5 @@ document.getElementById("player-form").addEventListener("submit", (e) => {
 //ALSO, each round, whoever won the previous round should GO FIRST
 //Finally, when the game is reset, the forms need to be cleared
 //Consider adding a simple animation when a winner is declared
+
+//THE NAME CHANGES TO PLAYER 1's name when they get the first point???

@@ -32,19 +32,85 @@ body {
 }
 
 #layout {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    gap: 2rem;
+    gap: 2rem; */
+}
+
+#layout {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr auto;
+}
+
+
+
+
+#header {
+    grid-column: 1 / 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 45px;
+    padding-top: 1rem;
+}
+
+#rounds-counter {
+    padding-top: 30px;
+    text-align: center;
+    color: white;
+    font-size: 2rem;
+}
+
+#footer {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    grid-column: 1 /4;
+}
+
+#left-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px black;
+    gap:30px;
+}
+
+#right-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px black;
+       gap:30px;
+}
+
+#right-sidebar .symbol, #left-sidebar .symbol{
+    font-size:4rem;
 }
 
 #container {
+    grid-column: 2;
+    grid-row: 2;
+    margin: auto;
+
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    /* add breathing room */
+
     width: 90vmin;
+    /* scales with viewport */
     height: 90vmin;
+    /* square */
     max-width: 500px;
     max-height: 500px;
 }
@@ -183,3 +249,5 @@ form {
     gap: 30px;
     justify-content: center;
 }
+
+/* MUST REVIEW CSS === HAPPY WITH LAYOUT? */
