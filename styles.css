@@ -1,3 +1,6 @@
+/* =========================
+   Global / Reset
+========================= */
 html,
 body {
     margin: 0;
@@ -7,48 +10,15 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-
-#start-screen {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
-#start-screen-txt {
-    color: white;
-    font-size: 1.2rem;
-}
-
-#start-screen input {
-    padding: 10px 14px;
-    font-size: 1rem;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    outline: none;
-    width: 220px;
-}
-
+/* =========================
+   Layout
+========================= */
 #layout {
-    /* display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    gap: 2rem; */
-}
-
-#layout {
-    height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto 1fr auto;
+    height: 100vh;
 }
-
-
-
 
 #header {
     grid-column: 1 / 4;
@@ -60,100 +30,182 @@ body {
     padding-top: 1rem;
 }
 
-#rounds-counter {
-    padding-top: 30px;
-    text-align: center;
-    color: white;
-    font-size: 2rem;
-}
-
 #footer {
+    grid-column: 1 / 4;
     display: flex;
     justify-content: center;
     gap: 30px;
     padding: 20px;
-    grid-column: 1 /4;
-}
-
-#left-sidebar {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: solid 1px black;
-    gap:30px;
-}
-
-#right-sidebar {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: solid 1px black;
-       gap:30px;
-}
-
-#right-sidebar .symbol, #left-sidebar .symbol{
-    font-size:4rem;
 }
 
 #container {
     grid-column: 2;
     grid-row: 2;
     margin: auto;
-
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    /* add breathing room */
-
     width: 90vmin;
-    /* scales with viewport */
     height: 90vmin;
-    /* square */
     max-width: 500px;
     max-height: 500px;
 }
 
+#left-sidebar,
+#right-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+}
+
+/* =========================
+   Start Screen
+========================= */
+#start-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    height: 100vh;
+}
+
+.start-screen-txt {
+    color: white;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    text-align: center;
+}
+
+#start-screen input {
+    width: clamp(140px, 30vw, 220px);
+    padding: 10px 14px;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+/* =========================
+   Text / Typography
+========================= */
+.title {
+    color: white;
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    font-weight: bold;
+    font-style: italic;
+}
+
+.subtext {
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    font-weight: bold;
+    font-style: italic;
+}
+
+.symbol,
+.start-symbol {
+    padding-top: 10px;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-family: 'Press Start 2P', monospace;
+}
+
+.start-symbol {
+    color: white;
+}
+
+/* Sidebar symbols */
+#right-sidebar .symbol,
+#left-sidebar .symbol {
+    font-size: clamp(2rem, 6vw, 4rem);
+}
+
+/* =========================
+   Counters / Display
+========================= */
+#rounds-counter,
+#turns-counter,
+#current-player-display {
+    display: inline-block;
+    min-width: 4rem;
+    padding: 0.75rem 1.5rem;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: bold;
+    text-align: center;
+    border-radius: 0.75rem;
+    background: #f5f5f5;
+    color: #333;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.15),
+        0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+#counter-display {
+    display: flex;
+    gap: 50px;
+    text-align: center;
+}
+
+/* =========================
+   Sidebar Styling
+========================= */
+.sidebar-styling {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0.75rem 1.5rem;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: bold;
+    border-radius: 0.75rem;
+    background: white;
+    color: #333;
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.15),
+        0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================
+   Tiles
+========================= */
 .tile {
     aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
     background: white;
-    border: 2px solid rgb(0, 0, 0);
+    border: 2px solid black;
+    border-radius: 1rem;
     font-size: 8vmin;
+    font-family: 'Press Start 2P', monospace;
     line-height: 1;
     user-select: none;
-    border-radius: 1rem;
-    font-family: 'Press Start 2P', monospace;
 }
 
 .tile:hover {
     background: #7dcfff;
+    border: 4px solid black;
     transform: scale(1.05);
-    border: 4px solid rgb(0, 0, 0);
 }
 
-#next-round-btn {
-    background: #e74c3c;
+/* =========================
+   Buttons
+========================= */
+.ui-btn,
+#popup-btn {
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.2s ease;
 }
-
 
 .ui-btn {
-    padding: 0.75rem 1.5rem;
-    font-size: 1.2rem;
-    font-weight: bold;
     border: none;
-    border-radius: 0.75rem;
     background: #e74c3c;
     color: white;
-    cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: background 0.2s ease, transform 0.15s ease;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.15s ease, background 0.2s ease;
 }
 
 .ui-btn:hover {
@@ -165,84 +217,52 @@ body {
     transform: translateY(1px);
 }
 
-.title {
-    color: white;
-    font-size: 5rem;
-    font-weight: bold;
-    font-style: italic;
-}
-
-.subtext {
-    font-size: 1rem;
-    font-weight: bold;
-    font-style: italic;
-}
-
-#popup {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-    border: solid 3px black;
-    min-width: 250px;
-    text-align: center;
-    font-size: 2rem;
-    font-style: italic;
-}
-
-.hidden {
-    display: none !important;
+#next-round-btn {
+    background: #e74c3c;
 }
 
 #popup-btn {
     width: fit-content;
     position: relative;
-    background: #e7e7e7;
     padding: 0.5rem 0.8rem;
-    font-size: 1.3rem;
-    font-weight: bold;
+    background: #e7e7e7;
     border: 1px solid #333;
     border-radius: 8px;
 }
 
 #popup-btn:hover {
-    cursor: pointer;
-    background: #ffffff;
+    background: #fff;
+    border: 1px solid black;
     transform: scale(1.05);
-    border: 1px solid rgb(0, 0, 0);
 }
 
-#player-names,
-#scores-container {
-    color: white;
-    font-size: 1.5rem;
+/* =========================
+   Popup
+========================= */
+#popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
-    text-align: center;
-    gap: 100px;
-
-}
-
-.player-input-container {
-    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 15px;
+    padding: 1.5rem;
+    min-width: 250px;
+    background: white;
+    border: 3px solid black;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    font-style: italic;
+    text-align: center;
+    z-index: 1000;
 }
 
-.symbol {
-    padding-top: 10px;
-    font-size: 1.5rem;
-    color: white;
-    font-family: 'Press Start 2P', monospace;
-}
-
+/* =========================
+   Forms
+========================= */
 form {
     display: flex;
     flex-direction: column;
@@ -250,4 +270,15 @@ form {
     justify-content: center;
 }
 
-/* MUST REVIEW CSS === HAPPY WITH LAYOUT? */
+.player-input-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* =========================
+   Utilities
+========================= */
+.hidden {
+    display: none !important;
+}

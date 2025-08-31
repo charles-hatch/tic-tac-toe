@@ -14,16 +14,17 @@
     <!-- Start Screen -->
     <div id="start-screen">
         <h1 class="title">Tic Tac Toe</h1>
-        <div id="start-screen-txt">Input player names here.</div>
+        <div class="start-screen-txt">Input player names here.</div>
         <form id="player-form">
             <div class="player-input-container">
-                <div class="symbol">O</div>
+                <div class="start-symbol">O</div>
                 <input id="player1" placeholder="Player 1 name" minlength="2" maxlength="10">
             </div>
             <div class="player-input-container">
-                <div class="symbol">X</div>
+                <div class="start-symbol">X</div>
                 <input id="player2" placeholder="Player 2 name" minlength="2" maxlength="10">
             </div>
+                <div class="start-screen-txt">This is a best of 5 Tic Tac Toe game.</div>
             <button type="submit" class="ui-btn" id="start-btn">Start Game</button>
         </form>
 
@@ -39,22 +40,30 @@
         <div id="layout">
             <div id="header">
                 <div class="title">Tic Tac Toe</div>
-                <div id="rounds-counter"></div>
-            </div>
-            <div id="left-sidebar">
-                <div class="symbol">O</div>
-                <div id="scores-container">
-                    <div id="player-1-score"></div>
-
+                <div id="counter-display">
+                    <div id="rounds-counter"></div>
+                    <div id="turns-counter"></div>
                 </div>
-                <div id="turns-display"></div>
+                <div id="current-player-display"></div>
             </div>
+
+            <div id="left-sidebar">
+                <div class="sidebar-styling">
+                    <div class="symbol">O</div>
+                    <div id="player1-name-container"></div>
+                    <div id="player-1-score"></div>
+                </div>
+            </div>
+
             <div id="container"></div>
+
             <div id="right-sidebar">
-                <div class="symbol">X</div>
-                <div id="scores-container">
+                <div class="sidebar-styling">
+                    <div class="symbol">X</div>
+                    <div id="player2-name-container"></div>
                     <div id="player-2-score"></div>
                 </div>
+
             </div>
             <div id="footer">
 
@@ -66,6 +75,7 @@
         </div>
 
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script src="javascript.js"></script>
 </body>
 

@@ -11,11 +11,12 @@ const player1Input = document.querySelector('#player1');
 const player2Input = document.querySelector('#player2');
 const player1ScoreContainer = document.querySelector('#player-1-score');
 const player2ScoreContainer = document.querySelector('#player-2-score');
-const playerTurnsDisplay = document.querySelector('#turns-display');
+const playerTurnsDisplay = document.querySelector('#turns-counter');
 const playerRoundsDisplay = document.querySelector('#rounds-counter');
-
-//  playerTurnsDisplay.textContent = "It's " + currentPlayerName + "'s turn.";
-// DISPLAY THE MARKER NEXT TO THE NAMES
+const player1NameContainer = document.querySelector('#player1-name-container')
+const player2NameContainer = document.querySelector('#player2-name-container')
+const currentPlayerDisplay = document.querySelector("#current-player-display");
+//query seletors
 
 let player1Name = "Player 1";
 let player2Name = "Player 2";
@@ -69,24 +70,31 @@ const gameController = (function () {
   player2 = createPlayer("X");
   let currentPlayer = player1;
   let currentPlayerName = player1Name;
-  let turns = 0;
-  let rounds = 0;
+  let turns = 1;
+  let rounds = 1;
   let gameOver = false;
-
+  let gameEnd = false;
   const board = createGameboard();
 
-  // Private helper functions
+  const showWinnerEffect = () => {
+    confetti({
+      particleCount: 80,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+  };
+
   const switchPlayer = () => {
     if (currentPlayer === player1) {
       currentPlayer = player2;
       currentPlayerName = player2Name;
+      currentPlayerDisplay.textContent = currentPlayerName + "'s Turn.";
     } else {
       currentPlayer = player1;
       currentPlayerName = player1Name;
+      currentPlayerDisplay.textContent = currentPlayerName + "'s Turn.";
     }
   };
-
-
   const checkWin = (i) => {
     const b = board.gameboard;
     const m = currentPlayer.marker;
@@ -102,40 +110,57 @@ const gameController = (function () {
       b[2] === m && b[4] === m && b[6] === m) {
       gameOver = true;
       popUpBlock.classList.remove('hidden')
-      popUpText.textContent = "The Winner is " + currentPlayerName + "!";
-
-      //INCREASE SCORE
+      popUpText.textContent = "The Winner of this round is " + currentPlayerName + "!";
+      showWinnerEffect();
       currentPlayer.increaseScore();
-      player1ScoreContainer.textContent = player1Name + "'s score : " + player1.getScore();
-      player2ScoreContainer.textContent = player2Name + "'s score : " + player2.getScore();
-
-
+      player1ScoreContainer.textContent = "Score : " + player1.getScore();
+      player2ScoreContainer.textContent = "Score : " + player2.getScore();
+      //increase score and update display if win
     }
+    checkGameWinner();
 
+  };
+
+  const checkGameWinner = () => {
+    if (currentPlayer.getScore() >= 5) {
+      endGame();
+    } else return;
+  };
+
+  const endGame = () => {
+    gameEnd = true;
+    gameOver = true;
+    popUpBlock.classList.remove('hidden');
+    popUpText.textContent = currentPlayerName + " wins the match!";
+    showWinnerEffect();
   };
 
   const nextRound = () => {
     if (!gameOver) {
-      alert("This round isn't over yet!");
+      popUpBlock.classList.remove('hidden');
+      popUpText.textContent = "Round isn't over yet!";
       return;
     }
-    turns = 0;
+    if (gameEnd) return;
+    turns = 1;
     rounds++;
     playerRoundsDisplay.textContent = "Round " + rounds;
+    playerTurnsDisplay.textContent = "Turn 1";
     board.resetBoard();
     gameOver = false;
     popUpText.textContent = "";
     popUpBlock.classList.add('hidden')
     renderBoard();
-    //resets the board ready for the next round
+    //resets board for the next round
 
   };
 
   const resetGame = () => {
     board.resetBoard();
-    turns = 0;
-    rounds = 0;
+    turns = 1;
+    rounds = 1;
     gameOver = false;
+    gameEnd = false;
     player1.resetScore();
     player2.resetScore();
     popUpText.textContent = "";
@@ -143,16 +168,20 @@ const gameController = (function () {
     renderBoard();
     gameScreen.classList.add('hidden')
     startScreen.classList.remove('hidden');
-    // resets the entire game and returns to start screen
+    currentPlayer = player1;
+    currentPlayerName = player1Name;
+    currentPlayerDisplay.textContent = currentPlayerName + "'s Turn.";
+    document.getElementById("player-form").reset();
+    // resets game and return to start screen
   };
 
   const playTurn = (i) => {
     if (gameOver) return;
 
-
     if (board.checkCell(i)) {
       board.setMarker(i, currentPlayer.marker);
       turns++;
+      playerTurnsDisplay.textContent = "Turn " + turns;
       checkWin(i);
       switchPlayer();
     }
@@ -161,6 +190,7 @@ const gameController = (function () {
       popUpBlock.classList.remove('hidden');
       popUpText.textContent = "It's a draw!";
     }
+
   };
 
 
@@ -171,7 +201,7 @@ const gameController = (function () {
     nextRound,
     currentPlayer: () => currentPlayer,
     currentPlayerName: () => currentPlayerName,
-    board
+    board,
   };
 
 })();
@@ -187,12 +217,9 @@ function renderBoard() {
     }
 
     tile.addEventListener("click", () => {
-
       gameController.playTurn(i)
       renderBoard()
-
     });
-
     container.appendChild(tile);
   }
 }
@@ -218,26 +245,29 @@ document.getElementById("player-form").addEventListener("submit", (e) => {
   if (e.target.checkValidity()) {
     player1Name = player1Input.value.trim() || "Player 1";
     player2Name = player2Input.value.trim() || "Player 2";
-
-    console.log("Names stored:", player1Name, player2Name);
+    //Store Input Names
 
     startScreen.classList.add('hidden')
     gameScreen.classList.remove('hidden')
-    player1ScoreContainer.textContent = player1Name + "'s Score : 0";
-    player2ScoreContainer.textContent = player2Name + "'s Score : 0";
+    player1NameContainer.textContent = player1Name;
+    player2NameContainer.textContent = player2Name;
+    player1ScoreContainer.textContent = "Score : 0";
+    player2ScoreContainer.textContent = "Score : 0";
+    playerRoundsDisplay.textContent = "Round 1";
+    playerTurnsDisplay.textContent = "Turn 1"
+    currentPlayerDisplay.textContent = player1Name + "'s Turn.";
     //setup our initial text display
-    playerRoundsDisplay.textContent = "Round 0";
+
   } else {
     e.target.reportValidity(); // show native validation messages
   }
 });
 
-// add a display element that shows the results upon game end!
-//display the round / turn counter
-//theres no indicator of who is X or O (on game screen, show: "It's X's turn" with some text on the top or bottom)
-//BIG PROBLEM, WHEN THE GAME IS "RESET" --- ENSURE THAT THE PLAYER IS SWITCHED TO PLAYER 1 GOING FIRST
-//ALSO, each round, whoever won the previous round should GO FIRST
-//Finally, when the game is reset, the forms need to be cleared
-//Consider adding a simple animation when a winner is declared
 
-//THE NAME CHANGES TO PLAYER 1's name when they get the first point???
+
+
+//check and cleanup all code
+
+//prompt, please review my code. i need to tidy it up and condense it so it looks good incase someone else reviews
+//please focus on the odin project specifications, and whether or not i have met them. Factory Functions and The Module Pattern. 
+//Things like the animation effect, should this be placed within one of the other functions to condense?
