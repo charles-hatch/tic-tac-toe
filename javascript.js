@@ -265,9 +265,12 @@ document.getElementById("player-form").addEventListener("submit", (e) => {
 
 
 
+//TO DO POLISH
 
-//check and cleanup all code
+//Eliminate globals (let player1, player2).
 
-//prompt, please review my code. i need to tidy it up and condense it so it looks good incase someone else reviews
-//please focus on the odin project specifications, and whether or not i have met them. Factory Functions and The Module Pattern. 
-//Things like the animation effect, should this be placed within one of the other functions to condense?
+// Remove currentPlayerName duplication.
+
+// Extract renderScores().
+
+// Convert checkWin to loop win patterns.
